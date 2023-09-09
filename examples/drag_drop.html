@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파일 드래그 앤 드롭</title>
+</head>
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul, ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+    <style>
+        #drag_area {
+            border:4px dashed #ddd;
+            padding:4rem;
+            text-align:center;
+        }
+
+        .hidden {
+            display:none;
+        }
+    </style>
+
+    <h1>Drag & Drop</h1>
+
+    <div id="drag_area">
+        <p>파일을 드래그하여 놓아주세요.</p>
+    </div>
+
+    <p id="done" class="hidden">제출되었습니다.</p>
+
+    <script>
+        var dropZone = document.getElementById("drag_area");
+        var done = document.getElementById("done");
+
+        dropZone.addEventListener("dragover", dragOverHandler);
+        dropZone.addEventListener("drop", dropHandler);
+
+        function dropHandler(e) {
+            // preventDefault() -> 기본 동작을 실행하지 않기 위해 들어간다.
+            // 드롭의 경우 브라우저가 파일을 연다.
+            e.preventDefault(); 
+
+            var files = Array.from(e.dataTransfer.files);
+            // 유저가 업로드한 파일은 이벤트 dataTransfer.files에 저장된다.
+            // e.dataTransfer.files는 FileList라는 데이터 타입이다.
+            // FileList는 더이상 지원되지 않는다고 한다. 그래서 배열로 변환해야함.
+            // Array.from은 FileList를 배열로 변환한다.
+            // 정확하게는 순회 가능한 타입들을 배열로 변환한다.
+            // 해당 메소드를 사용하여 문자열을 배열로 변환할 수도 있다.
+            // 배열을 html에 그냥 출력하면 콤마로 구분된 문자열 형태로 출력된다고 한다.
+
+            // AJAX 요청..
+            console.log("제출한 파일 : ", files);
+
+            // 완료 메시지
+            dropZone.classList.add("hidden");
+            done.classList.remove("hidden");
+        }
+
+        function dragOverHandler(e) {
+            e.preventDefault();
+            console.log("드래그 중");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스크롤 애니메이션</title>
+</head>
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul, ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+    <style>
+        .blank_div {
+            width:100%;
+            height:700px;
+        }
+
+        .pop_scroll {
+            position:relative;
+            top:3rem;
+            transition:all 0.3s;
+            opacity:0;
+        }
+
+        .pop_scroll.active {
+            opacity: 1;
+            top:0;
+        }
+    </style>
+    
+    <div class="blank_div"></div>
+
+    <div class="pop_scroll">
+        <h1>POPPING</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, consectetur architecto dolorem facere temporibus adipisci praesentium error quibusdam dolore, dolorum debitis et molestias iusto est sequi? Placeat molestiae consequuntur pariatur.</p>
+    </div>
+
+    <div class="pop_scroll">
+        <h1>POPPING</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, consectetur architecto dolorem facere temporibus adipisci praesentium error quibusdam dolore, dolorum debitis et molestias iusto est sequi? Placeat molestiae consequuntur pariatur.</p>
+    </div>
+
+    <div class="pop_scroll">
+        <h1>POPPING</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, consectetur architecto dolorem facere temporibus adipisci praesentium error quibusdam dolore, dolorum debitis et molestias iusto est sequi? Placeat molestiae consequuntur pariatur.</p>
+    </div>
+
+    <div class="pop_scroll">
+        <h1>POPPING</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, consectetur architecto dolorem facere temporibus adipisci praesentium error quibusdam dolore, dolorum debitis et molestias iusto est sequi? Placeat molestiae consequuntur pariatur.</p>
+    </div>
+
+    <div class="pop_scroll">
+        <h1>POPPING</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, consectetur architecto dolorem facere temporibus adipisci praesentium error quibusdam dolore, dolorum debitis et molestias iusto est sequi? Placeat molestiae consequuntur pariatur.</p>
+    </div>
+    
+    <script>
+        var pop = document.getElementsByClassName("pop_scroll");
+        var pop_length = pop.length;
+
+        window.addEventListener("scroll", function(){
+            var vh = window.innerHeight; // 뷰포트의 높이
+            var y = 0;
+
+            for(var i = 0; i < pop_length; i++){
+                y = pop[i].getBoundingClientRect().y;
+                if(vh * 0.9 > y){
+                    pop[i].classList.add("active");
+                }else{
+                    pop[i].classList.remove("active");
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

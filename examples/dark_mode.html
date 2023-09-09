@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다크모드</title>
+</head>
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul, ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .dark_mode {
+            background:#333;
+            color:#fff;
+        }
+    </style>
+    <h1>테마 선택</h1>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum, repudiandae! Maxime fugit, eos sed iure dolores facilis delectus, dolorem labore amet aliquam libero modi nihil, aliquid ut inventore nam. Repellat.</p>
+    <input type="checkbox" id="dark_mode_chk"> <label for="dark_mode_chk">Dark Mode</label>
+
+    <script>
+        var dark_mode = document.getElementById("dark_mode_chk");
+
+        // 페이지가 로드 되었을 때
+        var isDarkMode = localStorage.getItem("darkTheme");
+        if(isDarkMode){
+            document.body.classList.add("dark_mode");
+            dark_mode.checked = true;
+        }
+
+        dark_mode.addEventListener("change", function(e){
+            var checked = e.target.checked; // 체크박스의 속성 (체크 상태)
+
+            if(checked){
+                document.body.classList.add("dark_mode");
+
+                // localStorage.setItem(key, value)
+                // 로컬스토리지에 데이터를 저장한다.
+                localStorage.setItem("darkTheme", true); 
+            }else{
+                document.body.classList.remove("dark_mode");
+                localStorage.removeItem("darkTheme"); 
+            }
+        });
+    </script>
+
+</body>
+</html>

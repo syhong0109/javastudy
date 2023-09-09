@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모달</title>
+</head>
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul, ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+    <style>
+        #overlay {
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.2);
+            position:fixed;
+            padding-top:100px;
+            top:0;
+            left:0;
+            z-index:10000;
+        }
+
+        #overlay.hidden {
+            display:none;
+        }
+
+        #overlay > .modal {
+            width:300px;
+            border-radius:20px;
+            min-height:200px;
+            padding:20px 15px;
+            background:#fff;
+            margin:0 auto;
+        }
+
+        #overlay > .modal > img {
+            width:100%;
+        }
+    </style>
+    <h1>Modal</h1>
+    <button id="modal_open">Open</button>
+
+    <div id="overlay" class="hidden">
+        <div class="modal" id="main_modal">
+            <h1>Heading</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et aliquam magni, explicabo iste exercitationem sed adipisci earum voluptatum, quo similique voluptates aut laborum itaque quos cumque consectetur optio quas natus.</p>
+        </div>
+    </div>
+
+    <script>
+        var modal_open = document.getElementById("modal_open");
+        var overlay = document.getElementById("overlay");
+        var main_modal = document.getElementById("main_modal");
+
+        modal_open.addEventListener("click", function(){
+            overlay.classList.remove("hidden");
+        });
+
+        overlay.addEventListener("click", function(e){
+            if(e.target === overlay){
+                overlay.classList.add("hidden");
+            }
+        });
+    </script>
+
+    <h1>Modal Gallery</h1>
+
+    <style>
+        .gallery_wrap {
+            width:100%;
+            height:100px;
+            display:flex;
+        }
+
+        .gallery_thumb {
+            width:100px;
+            height:100px;
+            cursor:pointer;
+            background:#000;
+        }
+
+        .gallery_thumb > img {
+            width:100px;
+            height:100px;
+            object-fit: cover;
+        }
+
+        .gallery_thumb > img:hover {
+            opacity:0.8;
+        }
+    </style>
+
+    <div class="gallery_wrap">
+        <div class="gallery_thumb">
+            <img src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_640.jpg" alt="">
+        </div>
+        <div class="gallery_thumb">
+            <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_640.jpg" alt="">
+        </div>
+        <div class="gallery_thumb">
+            <img src="https://cdn.pixabay.com/photo/2016/02/10/16/37/cat-1192026_640.jpg" alt="">
+        </div>
+    </div>
+
+    <script>
+        var gallerys = document.querySelectorAll(".gallery_thumb");
+
+
+        gallerys.forEach(
+            (item) => {
+                item.addEventListener('click', function(e){
+                    main_modal.innerHTML = '<img src="'+e.target.src+'">';
+                    overlay.classList.remove("hidden");
+                });
+            }
+        );
+
+    </script>
+</body>
+</html>

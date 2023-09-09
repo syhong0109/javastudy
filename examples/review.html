@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 리뷰</title>
+</head>
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul, ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <section style="padding:10px;">
+        <style>
+            .gallery_wrap {
+                width:100%;
+                height:100px;
+                display:flex;
+            }
+
+            .gallery_thumb {
+                width:100px;
+                height:100px;
+                cursor:pointer;
+                background:#000;
+            }
+
+            .gallery_thumb > img {
+                width:100px;
+                height:100px;
+                object-fit: cover;
+            }
+
+            .gallery_thumb > img:hover {
+                opacity:0.8;
+            }
+            .gallery_thumb2 {
+                width:100px;
+                height:100px;
+                cursor:pointer;
+                background:#000;
+            }
+
+            .gallery_thumb2 > img {
+                width:100%;
+                height:100%;
+                object-fit: cover;
+            }
+
+            .gallery_thumb2 > img:hover {
+                opacity:0.8;
+            }
+            
+            .img_slide {
+                width:300px;
+                height:300px;
+                position:relative;
+            }
+            .img_slide > .wrapper {
+                width:100%;
+                height:100%;
+                overflow:hidden;
+                position:relative;
+            }
+            .img_slide > .wrapper > img {
+                width:100%;
+                height:100%;
+                object-fit:cover;
+            }
+            .img_slide > .nav {
+                width:100%;
+                position:absolute;
+                display:flex;
+                justify-content:space-between;
+                align-items: center;
+                height:40px;
+                top: calc(50% - 20px);
+            }
+            .img_slide > .nav > .btn {
+                width:40px;
+                height:40px;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                color:#fff;
+                font-size:20px;
+                font-weight:bold;
+                cursor:pointer;
+                background:none;
+                border:none;
+            }
+
+            .gallery_thumb2.gallery2_active {
+                outline:3px solid #f5a142;
+                z-index:1;
+            }
+        </style>
+        <div class="img_slide">
+            <div id="slide_wrapper" class="wrapper">
+                <img src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_640.jpg" alt="">
+            </div>
+            <div class="nav">
+                <button class="btn" onclick="move(-1)">&#10094;</button>
+                <button class="btn" onclick="move(1)">&#10095;</button>
+            </div>
+        </div>
+
+        <div class="review">
+            <h3>John Doe</h3>
+            <i>August 17, 2023</i>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolores recusandae velit hic unde modi corrupti veniam similique perferendis molestiae inventore maxime quidem culpa, voluptas aut consectetur soluta quas tenetur?</p>
+        </div>
+
+        <div class="gallery_wrap">
+            <div class="gallery_thumb2 gallery2_active" index="1">
+                <img src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_640.jpg" alt="">
+            </div>
+            <div class="gallery_thumb2" index="1">
+                <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_640.jpg" alt="">
+            </div>
+            <div class="gallery_thumb2" index="2">
+                <img src="https://cdn.pixabay.com/photo/2016/02/10/16/37/cat-1192026_640.jpg" alt="">
+            </div>
+        </div>
+
+        <script>
+            var gallerys2 = document.querySelectorAll(".gallery_thumb2");
+            var slide_wrapper = document.getElementById("slide_wrapper");
+            var current_index = 0;
+            var full_index = gallerys2.length;
+
+            function thumb_init(){
+                var gallery2_active = document.getElementsByClassName("gallery2_active");
+                gallery2_active[0].classList.remove("gallery2_active");
+            }
+
+            gallerys2.forEach(
+                (item) => {
+                    item.addEventListener('click', function(e){
+                        slide_wrapper.innerHTML = '<img src="'+e.target.src+'">';
+                        current_index = parseInt(item.getAttribute("index"));
+                        thumb_init();
+                        item.classList.add("gallery2_active");
+                    });
+                }
+            );
+
+            function move(cnt){
+                current_index += cnt;
+
+                if(current_index < 0){
+                    current_index = full_index - 1;
+                }else if(current_index >= full_index){
+                    current_index = 0;
+                }
+
+                var img_html = gallerys2[current_index].innerHTML;
+                slide_wrapper.innerHTML = img_html;
+
+                thumb_init();
+                gallerys2[current_index].classList.add("gallery2_active");
+            }
+
+            /* 
+            
+            썸네일을 각각 따로따로 div로 감싸지 않고 img로 넣는 편이 좀 더 효율적임
+            img에 불러올 class를 넣어두고 그걸 불러서 thumbs[index].src로 넣기
+            이미지 변경될 곳에도 그냥 이미지에 id를 둘 것. 
+            그럼 main.src = thumbs[index].src; 로 쉽게 변경할 수 있음.
+
+            */
+        </script>
+    </section>
+</body>
+</html>

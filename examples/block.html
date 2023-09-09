@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>광고팝업창</title>
+</head>
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul, ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+    <style>
+        .block_wrap {
+            width:300px;
+            background:#333;
+            border:3px solid #000;
+            padding:20px;
+            position:fixed;
+            z-index:1;
+            top:40px;
+            left:calc(50% - 150px);
+        }
+    </style>
+
+    <div class="block_wrap" id="block1">
+        <p style="margin-top:0;">대충 광고 내용 확인하는 중 나는 모르겟다 아무거나 막 쓰고 일단 해봐</p>
+        <button id="block_close">닫기</button>
+        <button id="block_remove">다시는 보지 않기</button>
+    </div>
+
+    <h1>지금은 안뜨는 게 정상이다...</h1>
+
+    <script>
+        var block_close = document.getElementById("block_close");
+        var block_remove = document.getElementById("block_remove");
+        var block1 = document.getElementById("block1");
+
+        if(localStorage.getItem("block1")){
+            block1.remove(); // remove() 엘리먼트를 제거한다.
+        }
+
+        block_close.addEventListener("click", function(){
+            block1.remove();
+        });
+
+        block_remove.addEventListener("click", function(){
+            block1.remove();
+
+            localStorage.setItem("block1", true);
+        });
+    </script>
+</body>
+</html>

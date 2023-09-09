@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>튜토리얼</title>
+</head>
+<body>
+    <h1>HTML과 JavaScript 튜토리얼</h1>
+
+    <section>
+        <h1>window 객체</h1>
+        <p>웹개발을 위한 도구모음</p>
+
+        <ol>
+            <li>console</li>
+            <li>history</li>
+            <li>location</li>
+            <li>navigator</li>
+            <li>서버 요청</li>
+            <li>storage</li>
+            <li>document</li>
+        </ol>
+
+        <script>
+            //console.log(window);
+        </script>
+    </section>
+
+    <section>
+        <h1>console</h1>
+        <p>브라우저의 콘솔에 접근할 수 있다.</p>
+
+        <script>
+            //window.console.log("lol");
+        </script>
+    </section>
+
+    <section>
+        <h1>history</h1>
+        <p>브라우징 정보에 관한 기록</p>
+
+        <script>
+            //console.log(window.history);
+            // history.length : 방문한 페이지 개수
+            // history.back, history.forward : 뒤로가기, 앞으로 가기
+        </script>
+    </section>
+
+    <section>
+        <h1>location</h1>
+        <p>현재 URL에 관한 정보</p>
+
+        <script>
+            // console.log(window.location); 로케이션 객체
+            // console.log(window.href); URL
+            // console.log(window.protocol); 프로토콜
+            // console.log(window.reload); 새로고침
+        </script>
+    </section>
+
+    <section>
+        <h1>navigator</h1>
+        <p>브라우저에 대한 정보</p>
+
+        <script>
+            // console.log(window.navigatoe); 네비게이터 객체
+            // console.log(navigator.language); 브라우저의 언어
+            // console.log(navigator.onLine); 온라인 상태
+
+            // geolocation 사용자의 지리적 위치
+            // console.log(navigator.geolocation.getCurrentPosition);
+            // console.log(navigator.geolocation.coordinates); 좌표
+        </script>
+    </section>
+
+    <section>
+        <h1>서버 요청 함수</h1>
+
+        <script>
+            // console.log(window.XMLHttpRequest);
+            // console.log(window.fetch);
+        </script>
+    </section>
+
+    <section>
+        <h1>스토리지</h1>
+        <p>브라우저가 제공하는 저장공간</p>
+
+        <script>
+            // console.log(window.document.cookie); 쿠키
+            // console.log(window.localStorage); 쿠키 대신 쓰이기도 함
+            // console.log(window.sessionStorage); 세션
+        </script>
+    </section>
+
+    <section>
+        <h1>Document</h1>
+
+        <script>
+            // console.log(window.document); HTML
+        </script>
+    </section>
+
+    <section>
+        <h1>선택자</h1>
+
+        <ul id="uls">
+            <li id="foo">foo</li>
+            <li class="item">bar</li>
+            <li class="item">baz</li>
+        </ul>
+        
+        <script>
+            // var foo = document.getElementById("foo"); // id 선택자
+            // var item = document.getElementsByClassName("item"); // 클래스 선택자
+            // var uls = document.getElementById("uls");
+
+            // console.log(uls.innerHTML); // innerHTML 트리를 문자열 타입으로 저장
+
+            // uls.innerHTML = `
+            // <ul>
+            //     <li>기네스</li>
+            //     <li>하이네켄</li>
+            //     <li>버드와이저</li>
+            // </ul>
+            // `;
+        </script>
+    </section>
+    <section>
+        <h1>classList</h1>
+        <p>엘리먼트의 클래스 리스트를 저장한다</p>
+
+        <style>
+            .text-italic {
+                font-style:italic;
+            }
+
+            .underline {
+                text-decoration: underline;
+            }
+
+            .font-bold {
+                font-weight: bold;
+            }
+        </style>
+
+        <ul>
+            <li id="foo2" class="font-bold text-italic">foo</li>
+            <li>bar</li>
+            <li>baz</li>
+        </ul>
+
+        <script>
+            // var foo = document.getElementById("foo2");
+
+            // console.log(foo.classList);
+            // foo.classList.add("underline");
+        </script>
+    </section>
+    <section>
+        <h1>attribute</h1>
+
+        <input type="text" id="input-text" name="q" 
+            placeholder="크아악" autocomplete="off">
+
+        <script>
+            // var input = document.getElementById("input-text");
+
+            // console.log(input.type);
+            // console.log(input.id);
+            // console.log(input.name);
+            // console.log(input.placeholder);
+            // console.log(input.autocomplete);
+        </script>
+    </section>
+
+    <section>
+        <h1>createElement</h1>
+        <p>자바스크립트에서 엘리먼트를 만든다.</p>
+
+        <ul id="list">
+            <li>foo</li>
+            <li>bar</li>
+        </ul>
+
+        <script>
+            // var list = document.getElementById("list")
+
+            // var li = document.createElement("li") // li 엘리먼트를 만든다
+            // li.textContent = "baz" // 엘리먼트의 텍스트
+            // list.appendChild(li) // 마지막에 추가한다
+        </script>
+    </section>
+
+    <section>
+        <h1>Q. createElement</h1>
+
+        <ul id="list1"></ul>
+
+        <script>
+            // var list = document.getElementById("list1")
+            // var arr = ["foo", "bar", "baz"]
+            // var li = "";
+            // arr.forEach(function(data){
+            //     li = document.createElement("li")
+            //     li.textContent = data
+            //     list.appendChild(li)
+            // })
+        </script>
+    </section>
+
+    <section>
+        <h1>event와 event 처리</h1>
+        <p>
+            이벤트 : 웹페이지 내에서 유저의 행위
+            예 : 클릭, 스크롤, 터치, 브라우저 크기 조절 등
+        </p>
+
+        <button id="btn">버튼</button>
+
+        <script>
+            var btn = document.getElementById("btn")
+
+            btn.addEventListener("click", function(){
+                alert('lol');
+            })
+        </script>
+    </section>
+
+    <section>
+        <h1>canvas</h1>
+        <p>자바스크립트를 사용해서 HTML에서 그래픽을 표현한다.
+            그래프, 차트, 애니메이션 등
+        </p>
+        
+        <style>
+            #canvas {
+                background-color:#000;
+            }
+        </style>
+
+        <canvas id="canvas" width="300" height="200"></canvas>
+
+        <script>
+            var c = document.getElementById("canvas") // 캔버스
+            var ctx = c.getContext("2d") // 펜
+
+            //얼굴
+            ctx.fillStyle = '#0af'
+            ctx.fillRect(0, 100, 100, 100)
+
+            //눈
+            ctx.fillStyle = '#000'
+            ctx.fillRect(20, 120, 20, 20)
+            ctx.fillRect(60, 120, 20, 20)
+
+            //입
+            ctx.fillStyle = '#000'
+            ctx.fillRect(20, 160, 10, 10)
+            ctx.fillRect(20, 170, 60, 10)
+            ctx.fillRect(70, 160, 10, 10)
+
+        </script>
+    </section>
+
+    <section>
+        <h1>Q. Password toggle</h1>
+
+        <style>
+            .password_toggle {
+                display:flex;
+                align-items: center;
+                border:1px solid #aaa;
+                border-radius:3px;
+                width:250px;
+                justify-content: space-between;
+                padding-left:8px;
+            }
+            .password_toggle_input {
+                outline:none;
+                border:none;
+                height:32px;
+                width:200px;
+            }
+            .password_toggle_button {
+                border:none;
+                background:none;
+                width:50px;
+                height:24px;
+                background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/></svg>');
+                background-size:24px;
+                background-repeat: no-repeat;
+                background-position:center;
+            }
+            .password_toggle_button.active {
+                background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z"/></svg>');
+            }
+        </style>
+
+        <div class="password_toggle">
+            <input type="password" class="password_toggle_input" name="password" id="password_toggle">
+            <button class="password_toggle_button" id="password_toggle_btn"></button>
+        </div>
+
+        <script>
+            var password_btn = document.getElementById("password_toggle_btn");
+            var password_input = document.getElementById("password_toggle");
+            var password_toggle = false;
+
+            password_btn.addEventListener("click", function(){
+                if(password_toggle){
+                    password_btn.classList.remove("active");
+                    password_toggle = false;
+                    password_input.type = "password";
+                }else{
+                    password_btn.classList.add("active");
+                    password_toggle = true;
+                    password_input.type = "text";
+                }
+            });
+        </script>
+    </section>
+
+    <style>
+        .top_btn {
+            position:fixed;
+            bottom:40px;
+            right:40px;
+            cursor:pointer;
+            color:#fff;
+            background:#000;
+            opacity:0.6;
+            width:40px;
+            height:40px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            border-radius:50%;
+            font-size:12px;
+        }
+
+        .top_btn.hidden {
+            display:none;
+        }
+    </style>
+
+    <div id="top_btn" class="top_btn">
+        TOP
+    </div>
+    
+    <script>
+        var top_btn = document.getElementById("top_btn");
+
+        window.addEventListener("scroll", function(){
+            var scrollTop = document.documentElement.scrollTop;
+
+            if(scrollTop > 200){
+                top_btn.classList.remove("hidden");
+            }else{
+                top_btn.classList.add("hidden");
+            }
+        })
+
+        top_btn.addEventListener("click", function(){
+            document.documentElement.scrollTop = 0;
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>라이브 서치</title>
+</head>
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul, ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+    <h1>Q. Live Search</h1>
+    <input type="text" id="live_search" placeholder="Search">
+
+    <style>
+        .search_keyword {
+            padding:7px;
+            border-bottom:1px solid #ddd;
+        }
+        .search_keyword.hidden {
+            display:none;
+        }
+    </style>
+
+    <ul style="padding:0; margin:0; width:150px;">
+        <li class="search_keyword">List</li>
+        <li class="search_keyword">Test</li>
+        <li class="search_keyword">Beast</li>
+        <li class="search_keyword">Deadline</li>
+        <li class="search_keyword">Halo</li>
+    </ul>
+
+    <script>
+        var keywords = document.querySelectorAll(".search_keyword");
+        var live_search = document.getElementById("live_search");
+
+        live_search.addEventListener("keyup", function(){
+            var search_keyword = live_search.value.toLowerCase();
+
+            if(search_keyword){
+                keywords.forEach((word)=>{
+                    if(word.innerHTML.toLowerCase().includes(search_keyword)){
+                        word.classList.remove("hidden");
+                    }else{
+                        word.classList.add("hidden");
+                    }
+                });
+            }else{
+                keywords.forEach((word)=>{
+                    word.classList.remove("hidden");
+                });
+            }
+        });
+
+        
+    </script>
+</body>
+</html>
