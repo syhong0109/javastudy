@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA</title>
+</head>
+<body>
+    <!-- SPA 구조  -->
+
+  <nav>
+    <ul>
+      <li>
+        <a href="#/">Home</a>
+      </li>
+      <li>
+        <a href="#/posts">Posts</a>
+      </li>
+      <li>
+        <a href="#/contact">Contact</a>
+      </li>
+    </ul>
+  </nav>
+  
+  <div id="main"></div>
+
+  <script>
+
+    /*
+      1 SPA (Single Page Application)
+      자바스크립트를 사용하여 페이지를 업데이트한다
+      속도가 빠르고 화면전환이 부드럽다
+      기타 개발과정상 장점 등
+
+      2 URL (Uniform Resource Locator)
+      웹사이트/서버의 주소
+
+      예) https://google.com/news/sports?page=1
+
+      1) path
+      리소스의 경로(path)
+
+      예) https://google.com/news/sports - 스포츠 뉴스의 경로
+
+      2) 쿼리 파라미터(query parameter)
+      url에 용량이 작은 데이터를 전송할 때 사용된다
+      path?key=value
+
+      예) ...sports/?page=1
+
+      3) location hash
+      웹페이지 내에서 특정한 장소를 찾을 때 사용된다
+      url#hash
+
+      예) ...sports?page=1#lastArticle
+
+
+      3 라우터 (Router)
+      요청 URL과 적절한 리소스를 연결한다
+    */
+
+    var main = document.getElementById("main");
+
+    document.addEventListener("DOMContentLoaded", hashRouter);
+
+    // hashchange: hash가 바뀔 때
+    window.addEventListener("hashchange", hashRouter);
+
+    // 해쉬 기반 라우터 (해쉬를 다른 방식으로 사용한다)
+    function hashRouter() {
+      // location.hash: location hash값 저장
+      var url = location.hash.substring(1);
+
+      // console.log("요청URL:", url);
+
+      // url 분석
+      var urlData = parseUrl(url);
+      console.log(urlData);
+
+      // 라우트 리스트
+      var routes = [
+        // 라우트
+        { path: "/", element: Home },
+        { path: "/posts", element: Posts },
+        { path: "/post", element: Post },
+        { path: "/contact", element: Contact },
+      ]
+
+      // 라우팅
+      for (var route of routes) { 
+        // for of 반복문: 기존의 반복문과 같다
+        // for (아이템 of 배열)
+
+        // 요청한 path와 일치하는 path를 가진 라우트의 element가 호출된다
+        if (route.path === urlData.path) {
+          main.innerHTML = route.element(urlData.query);
+        }
+
+      }
+    }
+
+    // url를 분석하는 함수
+    function parseUrl(url) {
+      // 쿼리가 있는지 파악
+      var hasQuery  = url.indexOf("?") > -1;
+      var path, query;
+
+      if (hasQuery) {  
+        // ?앞에 문자열을 추출한다
+        path = url.substring(url.indexOf("?"), -1)
+        // ?부터 뒤에 문자열을 모두 추출한다
+        query = url.substring(url.indexOf("?"))
+      } else {
+        path = url;
+        query = null;
+      }
+      
+      return { url, path, query };
+    }
+
+    // 페이지
+    function Home() {
+      return (`
+        <h1>Home</h1>
+        <p>Welcome to my blog.</p>
+      `);
+      }
+
+    function Posts() {        
+      return (`
+        <h1>Posts</h1>
+        <ul>
+          <li>
+            <a href="#/post?postId=p1">Second post</a>
+          </li>  
+          <li>
+            <a href="#/post?postId=p0">First post</a>
+          </li>  
+        </ul>
+      `)
+    } 
+
+    function Post(query) {
+      
+      // query: 서버 요청시에 사용된다
+
+      return (`
+        <h1>Post</h1>
+        <p>${query}</p>
+      `)
+    }
+
+    function Contact() {
+      return (`
+        <h1>Contact</h1>
+        <p>john@example.com</p>
+      `)
+    }
+  </script>
+</body>
+</html>

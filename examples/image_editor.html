@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 에디터</title>
+</head>
+<body>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+    
+        body {
+          margin: 0;
+        }
+    
+        nav {
+          position: fixed;
+          padding: 1rem;
+          top: 0;
+          left: 0;
+          width: 250px;
+          height: 100vh;
+        }
+    
+        .filter-group {
+          margin: 1rem 0;
+        }
+    
+        label {
+          display: block;
+          font-weight: 600;
+        }
+    
+        input[type=range] {
+          width: 100%;
+        }
+    
+        .filter-value {
+          margin: 0;
+        }
+    
+        main {
+          margin-left: 250px;
+          padding: 4rem;
+          height: 100vh;
+          background-color: #333;
+          overflow: auto;
+        }
+        
+        main::-webkit-scrollbar {
+          display: none;
+        }
+      </style>
+    
+      <nav>
+        <h1>JS Image Editor &#127912;</h1>
+        
+        <div class="filter-group">
+          <label for="brightness">Brigtness</label>
+          <input type="range" name="brightness" min="0" max="200" value="100"
+            oninput="setFilter(this)"
+          >
+          <p class="filter-value">100</p>
+        </div>
+      
+        <div class="filter-group">
+          <label for="saturate">Saturate</label>
+          <input type="range" name="saturate" min="0" max="200" value="100"
+            oninput="setFilter(this)"
+          >
+          <p class="filter-value">100</p>
+        </div>
+      
+        <div class="filter-group">
+          <label for="invert">Invert</label>
+          <input type="range" name="invert" min="0" max="100" value="0"
+            oninput="setFilter(this)"
+          >
+          <p class="filter-value">0</p>
+        </div>
+        
+        <div class="filter-group">
+          <label for="blur">Blur</label>
+          <input type="range" name="blur" min="0" max="10" value="0"
+            oninput="setFilter(this)"
+          >
+          <p class="filter-value">0</p>
+        </div>
+      </nav>
+    
+      <main>
+        <canvas id="canvas"></canvas>
+      </main>
+    
+      <script>
+        // 문서에서 그래픽을 표현할 때 사용하는 엘리먼트
+        var canvas = document.getElementById('canvas');
+        // 펜
+        var ctx = canvas.getContext('2d');
+        // 필터의 단위
+        var UNIT = {
+          brightness: "%",
+          saturate: "%",
+          invert: "%",
+          blur: "px",
+        }
+        // 이미지 엘리먼트
+        var imgElement = new Image();
+        // 필터 수집
+        var filter = {};
+    
+        // DOMContentLoaded: 문서가 로드되었을 때
+        document.addEventListener("DOMContentLoaded", getImage);
+    
+        imgElement.addEventListener("load", function () {
+          // 캔버스의 크기를 이미지 크기에 맞춘다
+          canvas.width = imgElement.naturalWidth;
+          canvas.height = imgElement.naturalHeight;
+          
+          render();
+        })
+        
+        function getImage() {
+          // 이미지에 소스 적용
+          imgElement.src = "https://img1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/news/201506/04/etnews/20150604002702155fmwx.jpg";
+        }
+    
+        // 필터를 적용하는 함수
+        // input이벤트: 유저가 값을 입력중일 때
+        function setFilter(element) {
+          // 이벤트핸들러를 호출한 엘리먼트
+          // console.log(element)
+    
+          var name = element.name;
+          var value = element.value;
+    
+          // 필터 수집
+          filter[name] = value + UNIT[name];
+    
+          console.log(filter);
+    
+          var filterInString = "";
+    
+          // for in 반복문: 객체 순회용 
+          // for (속성이름 in 객체)의 형태
+          for (var key in filter) {
+            // key: saturate, brightess, invert, blur
+            filterInString += `${key}(${filter[key]}) `;
+          }
+    
+          // 문자열 타입의 필터
+          console.log(filterInString);
+    
+          // 필터 적용
+          ctx.filter = filterInString.trim();
+    
+          render();
+    
+          // 필터값 출력 (인풋 밑)
+    
+          // nextElementSibling: 엘리먼트 바로 다음의 엘리먼트
+          element.nextElementSibling.textContent = value;
+        }
+    
+        function render() {
+          // 캔버스에 이미지를 렌더링한다
+    
+          // ctx.drawImage(이미지 엘리먼트, top, left)
+          ctx.drawImage(imgElement, 0, 0);
+        }
+    
+      </script>
+</body>
+</html>
